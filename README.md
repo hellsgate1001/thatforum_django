@@ -28,3 +28,10 @@ The individual pages required are
 
 ### User Admin
 Whether logged in as admin or a basic user, the individual user admin page will be the same, allowing editing of personal details and site preferences, eg number of threads or post to paginate by.
+
+Stored user information
+
+1. Username *
+2. Password *
+3. Email *
+4. Preferred pagination number
