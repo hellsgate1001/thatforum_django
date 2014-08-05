@@ -29,19 +29,23 @@ ALLOWED_HOSTS = []
 
 # Application definition
 
-INSTALLED_APPS = (
+DJANGO_APPS = (
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
-    'audit_log',
-
-    'thatforum',
-    'forumuser'
 )
+THIRD_PARTY_APPS = (
+    'audit_log',
+    'south',
+)
+THATFORUM_APPS = (
+    'thatforum',
+    'forumuser',
+)
+INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + THATFORUM_APPS
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -85,3 +89,5 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
 
 STATIC_URL = '/static/'
+
+AUTH_USER_MODEL = 'forumuser.ForumUser'
