@@ -2,6 +2,8 @@ from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.views.generic import ListView, DetailView, CreateView, UpdateView
 
+from .forms import UserForm
+
 
 class UserViewMixin(object):
     def __init__(self, *args, **kwargs):
@@ -14,12 +16,22 @@ class UserList(UserViewMixin, ListView):
 
 
 class UserDetail(UserViewMixin, DetailView):
-    pass
+    """
+    View for displaying user details
+    """
 
 
 class UserUpdate(UserViewMixin, UpdateView):
-    pass
-
+    """
+    Edit the details for an existing user
+    """
+    form_class = UserForm
 
 class UserCreate(UserViewMixin, CreateView):
-    pass
+    """
+    Create a new user
+    """
+    form_class = UserForm
+
+    def get_success_url(self, *args, **kwargs):
+        return self.object.get_absolute_url()

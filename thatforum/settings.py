@@ -93,3 +93,7 @@ STATIC_URL = '/static/'
 AUTH_USER_MODEL = 'forumuser.ForumUser'
 
 DEFAULT_PAGINATE_BY = 25
+
+TEMPLATE_DIRS = (
+    os.path.join(BASE_DIR, 'templates')
+)
