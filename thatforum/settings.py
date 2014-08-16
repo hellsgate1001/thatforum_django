@@ -91,3 +91,5 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 AUTH_USER_MODEL = 'forumuser.ForumUser'
+
+DEFAULT_PAGINATE_BY = 25
