@@ -10,4 +10,5 @@ urlpatterns = patterns('',
 
     url(r'^office/', include(admin.site.urls)),
     url(r'^users/', include('forumuser.urls')),
+    url(r'^forum/', include('forum.urls')),
 )
