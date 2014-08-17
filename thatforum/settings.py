@@ -40,10 +40,12 @@ DJANGO_APPS = (
 THIRD_PARTY_APPS = (
     'audit_log',
     'south',
+    'braces',
 )
 THATFORUM_APPS = (
     'thatforum',
     'forumuser',
+    'forum',
 )
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + THATFORUM_APPS
 
@@ -97,3 +99,5 @@ DEFAULT_PAGINATE_BY = 25
 TEMPLATE_DIRS = (
     os.path.join(BASE_DIR, 'templates')
 )
+
+LOGIN_URL = '/login/'
