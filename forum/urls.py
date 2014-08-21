@@ -1,9 +1,12 @@
 from django.conf.urls import patterns, include, url
 
-forum_urlpatterns = patterns('',
-    url(r'^$', ForumHome.as_view(), name='home'),
+from .views import ForumHome
+
+
+forum_patterns = patterns('',
+    url(r'^$', ForumHome.as_view(), name='list'),
 )
 
 urlpatterns = patterns('',
-    include(forum_urlpatterns, namespace='forum')
+    url(r'^',include(forum_patterns, namespace='forum'))
 )
