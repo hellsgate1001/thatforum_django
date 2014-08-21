@@ -5,6 +5,7 @@ South==1.0
 -e git+https://github.com/hellsgate1001/django-audit-log@c4b88a14205820c741c257dbcd1899f0620bcde4#egg=django_audit_log-v1.0
 django-braces==1.4.0
 six==1.7.3
+fake-factory==0.4.2
 
 #Keep factory_boy at the bottom as there is dependency issues with distribute and setuptools
 factory-boy==2.4.1
