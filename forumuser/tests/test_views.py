@@ -11,8 +11,3 @@ class TestUserListView(ThatForumTestCase):
 
     def test_non_logged_in(self):
         response = self.GET(self.list_url, 302)
-
-    def test_logged_in(self):
-        self.login_user(self.user)
-        response = self.GET(self.list_url)
-        self.logout_user(self.user)
