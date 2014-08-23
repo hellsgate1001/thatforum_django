@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>{{ object.name }}</h2>
+    <ul>
+    <li>{{ object.post }}</li>
+    {% for item in list_items %}
+    <li>{{ item.post }}</li>
+    {% endfor %}
+    </ul>
+{% endblock content %}

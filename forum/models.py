@@ -11,12 +11,17 @@ class ForumCategory(models.Model):
     def __unicode__(self):
         return self.name
 
+    class Meta:
+        verbose_name_plural = 'Forum categories'
+
 
 class ForumThread(models.Model):
     category = models.ForeignKey(ForumCategory)
     title = models.CharField(max_length=255)
+    slug = models.SlugField(max_length=255)
     author = models.ForeignKey(settings.AUTH_USER_MODEL)
     created = models.DateTimeField(auto_now_add=True)
+    post = models.TextField()
 
     def __unicode__(self):
         return self.title
