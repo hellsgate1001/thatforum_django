@@ -2,6 +2,7 @@
 
 {% block content %}
     <h2>{{ object.name }}</h2>
+    <a href="{% url 'forum:add_thread' object.slug %}">New Thread</a>
     <table>
         <tr>
             <th>Thread Title</th>

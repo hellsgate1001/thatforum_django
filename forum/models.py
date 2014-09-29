@@ -1,5 +1,7 @@
 from django.conf import settings
+from django.core.urlresolvers import reverse
 from django.db import models
+from django.template.defaultfilters import slugify
 
 from mptt.models import MPTTModel, TreeForeignKey
 
@@ -19,13 +21,8 @@ class ForumCategory(MPTTModel):
     def post_count(self):
         count = 0
         for thread in self.forumthread_set.all():
-            count+= thread.forumpost_set.count()
+            count += thread.forumpost_set.count()
         return count
-
-    # @post_count.setter
-    # def post_count(self, value):
-    #     self._post_count = value
-
 
     class Meta:
         verbose_name_plural = 'Forum categories'
@@ -41,9 +38,21 @@ class ForumThread(models.Model):
     def __unicode__(self):
         return self.title
 
+    def get_absolute_url(self):
+        return reverse('forum:thread_home', kwargs={'slug': self.slug})
+
     @property
     def num_replies(self):
         return self.forumpost_set.filter(is_thread_starter=False).count()
+
+    @property
+    def thread_starter(self):
+        return self.forumpost_set.get(thread=self, is_thread_starter=True)
+
+    def save(self, *args, **kwargs):
+        if self.slug == '':
+            self.slug = slugify(self.title)
+        return super(ForumThread, self).save(*args, **kwargs)
 
 
 class ForumPost(models.Model):

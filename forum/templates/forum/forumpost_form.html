@@ -1,19 +1,16 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h2>{{ object.title }}</h2>
-    <a href="{% url 'forum:thread_reply' object.slug %}">Reply</a>
+    <form action="" method="post">
+        {% csrf_token %}
+        <ul>
+            {{ form.as_ul }}
+        </ul>
+        <input type="submit" name="submit" value="Submit" />
+    </form>
+    {% if posts %}
     <table>
-        <tr>
-            <td>
-                {{ object.thread_starter.author.username }}<br/>
-                {{ object.thread_starter.created }}
-            </td>
-            <td>
-                {{ object.thread_starter.post}}
-            </td>
-        </tr>
-    {% for post in list_items %}
+        {% for post in posts %}
         <tr>
             <td>
                 {{ post.author.username }}<br/>
@@ -30,6 +27,7 @@
                 {{ post.post}}
             </td>
         </tr>
-    {% endfor %}
+        {% endfor %}
     </table>
+    {% endif %}
 {% endblock content %}

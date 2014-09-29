@@ -1,8 +1,11 @@
 from django.conf import settings
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, CreateView
 from django.shortcuts import render
 
+from thatforum.mixins import RequestForFormMixIn
+
+from .forms import ThreadCreateUpdateForm, ThreadReplyForm
 from .models import ForumPost, ForumThread, ForumCategory
 
 
@@ -113,5 +116,36 @@ class ForumThreadHome(DetailWithListMixin, DetailView):
     list_attribute = 'forumpost_set'
 
     def get_list_queryset(self):
-        return (self.list_model.objects.filter(thread=self.get_object())
-                .order_by('created'))
+        return (self.list_model.objects.filter(thread=self.get_object(),
+                is_thread_starter=False).order_by('created'))
+
+
+class ForumThreadCreateView(RequestForFormMixIn, CreateView):
+    model = ForumThread
+    form_class = ThreadCreateUpdateForm
+
+    def get_form_kwargs(self):
+        kwargs = super(ForumThreadCreateView, self).get_form_kwargs()
+        kwargs.update({'category': ForumCategory.objects.get(slug=self.kwargs['slug'])})
+        return kwargs
+
+
+class ForumThreadReply(RequestForFormMixIn, CreateView):
+    model = ForumThread
+    form_class = ThreadReplyForm
+    template_name = 'forum/forumpost_form.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(ForumThreadReply, self).get_context_data(**kwargs)
+        context['posts'] = (
+            self.get_object().forumpost_set.all().order_by('-created')[:5]
+        )
+        return context
+
+    def get_form_kwargs(self):
+        kwargs = super(ForumThreadReply, self).get_form_kwargs()
+        kwargs.update({'thread': self.get_object()})
+        return kwargs
+
+    def get_success_url(self):
+        return self.get_object().get_absolute_url()
