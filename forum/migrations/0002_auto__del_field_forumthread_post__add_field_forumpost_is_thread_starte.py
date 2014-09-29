@@ -8,15 +8,23 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
+        # Deleting field 'ForumThread.post'
+        db.delete_column(u'forum_forumthread', 'post')
+
+        # Adding field 'ForumPost.is_thread_starter'
+        db.add_column(u'forum_forumpost', 'is_thread_starter',
+                      self.gf('django.db.models.fields.BooleanField')(default=False),
+                      keep_default=False)
+
+
+    def backwards(self, orm):
         # Adding field 'ForumThread.post'
         db.add_column(u'forum_forumthread', 'post',
                       self.gf('django.db.models.fields.TextField')(default=''),
                       keep_default=False)
 
-
-    def backwards(self, orm):
-        # Deleting field 'ForumThread.post'
-        db.delete_column(u'forum_forumthread', 'post')
+        # Deleting field 'ForumPost.is_thread_starter'
+        db.delete_column(u'forum_forumpost', 'is_thread_starter')
 
 
     models = {
@@ -43,16 +51,21 @@ class Migration(SchemaMigration):
         u'forum.forumcategory': {
             'Meta': {'object_name': 'ForumCategory'},
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            u'level': ('django.db.models.fields.PositiveIntegerField', [], {'db_index': 'True'}),
+            u'lft': ('django.db.models.fields.PositiveIntegerField', [], {'db_index': 'True'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
             'order': ('django.db.models.fields.PositiveIntegerField', [], {'null': 'True', 'blank': 'True'}),
-            'parent': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['forum.ForumCategory']", 'null': 'True', 'blank': 'True'}),
-            'slug': ('django.db.models.fields.SlugField', [], {'max_length': '255'})
+            'parent': ('mptt.fields.TreeForeignKey', [], {'blank': 'True', 'related_name': "'children'", 'null': 'True', 'to': u"orm['forum.ForumCategory']"}),
+            u'rght': ('django.db.models.fields.PositiveIntegerField', [], {'db_index': 'True'}),
+            'slug': ('django.db.models.fields.SlugField', [], {'max_length': '255'}),
+            u'tree_id': ('django.db.models.fields.PositiveIntegerField', [], {'db_index': 'True'})
         },
         u'forum.forumpost': {
             'Meta': {'object_name': 'ForumPost'},
             'author': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['forumuser.ForumUser']"}),
             'created': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'is_thread_starter': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
             'post': ('django.db.models.fields.TextField', [], {}),
             'reply_to': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['forum.ForumPost']", 'null': 'True', 'blank': 'True'}),
             'thread': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['forum.ForumThread']"}),
@@ -64,7 +77,6 @@ class Migration(SchemaMigration):
             'category': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['forum.ForumCategory']"}),
             'created': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'post': ('django.db.models.fields.TextField', [], {}),
             'slug': ('django.db.models.fields.SlugField', [], {'max_length': '255'}),
             'title': ('django.db.models.fields.CharField', [], {'max_length': '255'})
         },

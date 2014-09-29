@@ -36,6 +36,7 @@ DJANGO_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'mptt',
 )
 THIRD_PARTY_APPS = (
     'audit_log',
@@ -101,3 +102,5 @@ TEMPLATE_DIRS = (
 )
 
 LOGIN_URL = '/users/login/'
+
+DATE_FORMAT = 'H:i d-m-Y'

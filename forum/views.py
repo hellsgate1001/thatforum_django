@@ -93,6 +93,10 @@ class DetailWithListMixin(object):
 class ForumHome(ListView):
     model = ForumCategory
 
+    def get_queryset(self):
+        queryset = super(ForumHome, self).get_queryset()
+        return queryset.filter(parent=None)
+
 
 class ForumCategoryHome(DetailWithListMixin, DetailView):
     model = ForumCategory
@@ -109,4 +113,5 @@ class ForumThreadHome(DetailWithListMixin, DetailView):
     list_attribute = 'forumpost_set'
 
     def get_list_queryset(self):
-        return self.list_model.objects.filter(thread=self.get_object())
+        return (self.list_model.objects.filter(thread=self.get_object())
+                .order_by('created'))

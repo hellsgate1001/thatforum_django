@@ -1,11 +1,25 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h2>{{ object.name }}</h2>
-    <ul>
-    <li>{{ object.post }}</li>
-    {% for item in list_items %}
-    <li>{{ item.post }}</li>
+    <h2>{{ object.title }}</h2>
+    <table>
+    {% for post in list_items %}
+        <tr>
+            <td>
+                {{ post.author.username }}<br/>
+                {{ post.created }}
+            </td>
+            <td>
+            {% if post.reply_to %}
+                <div class="reply_to">
+                    {{ post.reply_to.author.username }} posted<br/>
+                    <hr/>
+                    {{ post.reply_to.post }}
+                </div>
+            {% endif %}
+                {{ post.post}}
+            </td>
+        </tr>
     {% endfor %}
-    </ul>
+    </table>
 {% endblock content %}
