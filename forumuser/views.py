@@ -9,6 +9,7 @@ from django.views.generic import (
     UpdateView,
     FormView
     )
+from django.core.urlresolvers import reverse
 
 from braces.views import LoginRequiredMixin, PermissionRequiredMixin
 
@@ -58,3 +59,13 @@ class UserCreate(LoginRequiredMixin, PermissionRequiredMixin,
 
     def get_success_url(self, *args, **kwargs):
         return self.object.get_absolute_url()
+
+
+class UserProfile(LoginRequiredMixin, UserViewMixin, UpdateView):
+    """
+    Allow a user to update their own details and profile
+    """
+    form_class = UserForm
+
+    def get_object(self, queryset=None):
+        return self.request.user
