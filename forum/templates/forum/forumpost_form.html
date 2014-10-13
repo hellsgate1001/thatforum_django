@@ -3,31 +3,17 @@
 {% block content %}
     <form action="" method="post">
         {% csrf_token %}
-        <ul>
-            {{ form.as_ul }}
-        </ul>
-        <input type="submit" name="submit" value="Submit" />
+        {% for field in form %}
+        <div class="form-group col-md-12">
+            {{ field.errors }}
+            {{ field.label_tag }} {{ field }}
+        </div>
+        {% endfor %}
+        <button type="submit">Submit</button>
     </form>
     {% if posts %}
-    <table>
         {% for post in posts %}
-        <tr>
-            <td>
-                {{ post.author.username }}<br/>
-                {{ post.created }}
-            </td>
-            <td>
-            {% if post.reply_to %}
-                <div class="reply_to">
-                    {{ post.reply_to.author.username }} posted<br/>
-                    <hr/>
-                    {{ post.reply_to.post }}
-                </div>
-            {% endif %}
-                {{ post.post}}
-            </td>
-        </tr>
+            {% include 'forum/includes/forum_post.html' %}
         {% endfor %}
-    </table>
     {% endif %}
 {% endblock content %}

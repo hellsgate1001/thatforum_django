@@ -3,33 +3,16 @@
 {% block content %}
     <h2>{{ object.title }}</h2>
     <a href="{% url 'forum:thread_reply' object.slug %}">Reply</a>
-    <table>
-        <tr>
-            <td>
+    <div>
+        <div class="col-md-12">
+            <div class="col-md-3">
                 {{ object.thread_starter.author.username }}<br/>
                 {{ object.thread_starter.created }}
-            </td>
-            <td>
-                {{ object.thread_starter.post}}
-            </td>
-        </tr>
+            </div>
+            <div class="col-md-9">{{ object.thread_starter.post}}</div>
+        </div>
     {% for post in list_items %}
-        <tr>
-            <td>
-                {{ post.author.username }}<br/>
-                {{ post.created }}
-            </td>
-            <td>
-            {% if post.reply_to %}
-                <div class="reply_to">
-                    {{ post.reply_to.author.username }} posted<br/>
-                    <hr/>
-                    {{ post.reply_to.post }}
-                </div>
-            {% endif %}
-                {{ post.post}}
-            </td>
-        </tr>
+        {% include 'forum/includes/forum_post.html' %}
     {% endfor %}
-    </table>
+    </div>
 {% endblock content %}

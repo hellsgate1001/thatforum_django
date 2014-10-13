@@ -1,0 +1,16 @@
+        <div class="col-md-12{% if forloop.counter0|divisibleby:"2" %} stripe_row{% endif %}">
+            <div class="col-md-3">
+                {{ post.author.username }}: {{ forloop.counter }}<br/>
+                {{ post.created }}
+            </div>
+            <div class="col-md-9">
+            {% if post.reply_to %}
+                <div class="reply_to">
+                    {{ post.reply_to.author.username }} posted<br/>
+                    <hr/>
+                    {{ post.reply_to.post }}
+                </div>
+            {% endif %}
+                {{ post.post}}
+            </div>
+        </div>

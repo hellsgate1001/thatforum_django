@@ -2,21 +2,20 @@
 
 {% block content %}
     <h2>{{ object.name }}</h2>
-    <a href="{% url 'forum:add_thread' object.slug %}">New Thread</a>
-    <table>
-        <tr>
-            <th>Thread Title</th>
-            <th>Posted By</th>
-            <th>Posted On</th>
-            <th>No. of Replies</th>
-        </tr>
-    {% for thread in list_items %}
-        <tr>
-            <td><a href="{% url 'forum:thread_home' thread.slug %}">{{ thread.title }}</a></td>
-            <td>{{ thread.author.username }}</td>
-            <td>{{ thread.created|date }}</td>
-            <td>{{ thread.num_replies }}</td>
-        </tr>
-    {% endfor %}
-    </table>
+    <div id="thread_list">
+        <div>
+            <div class="col-md-6">Thread Title</div>
+            <div class="col-md-2">Posted By</div>
+            <div class="col-md-2">Posted On</div>
+            <div class="col-md-2">No. of Replies</div>
+        </div>
+        {% for thread in list_items %}
+        <div>
+            <div class="col-md-6"><a href="{% url 'forum:thread_home' thread.slug %}">{{ thread.title }}</a></div>
+            <div class="col-md-2">{{ thread.author.username }}</div>
+            <div class="col-md-2">{{ thread.created|date }}</div>
+            <div class="col-md-2">{{ thread.num_replies }}</div>
+        </div>
+        {% endfor %}
+    </div>
 {% endblock content %}

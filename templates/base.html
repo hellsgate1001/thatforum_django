@@ -1,10 +1,24 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ pagetitle }}</title>
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/global.css" />
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
 </head>
 <body>
 <header>
+    <div id="logo">
+        <h1>That Forum</h1>
+    </div>
     <div id="header_utils">
         {% if request.user.is_authenticated %}
         <a href="{% url 'user:my_account' %}">{{ request.user.username }}</a> (<a href="{% url 'logout' %}">Sign Out</a>)
@@ -15,5 +29,8 @@
 </header>
 {% block content %}
 {% endblock content %}
+
+<script type="text/javascript" src="{{ STATIC_URL }}js/jquery.1.11.1.min.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/bootstrap.min.js"></script>
 </body>
 </html>

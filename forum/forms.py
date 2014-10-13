@@ -35,6 +35,8 @@ class ThreadReplyForm(forms.ModelForm):
         self.request = kwargs.pop('request')
         self.thread = kwargs.pop('thread')
         super(ThreadReplyForm, self).__init__(*args, **kwargs)
+        for fn, field in self.fields.items():
+            field.widget.attrs['class'] = 'form-control'
 
     def save(self, commit=True):
         post = super(ThreadReplyForm, self).save(False)

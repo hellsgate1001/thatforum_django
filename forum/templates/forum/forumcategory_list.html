@@ -1,18 +1,16 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <table>
+    <div id="category_list">
     {% for main in object_list %}
-        <tr>
-            <th><a href="{% url 'forum:category_home' main.slug %}">{{ main.name }}</a></th>
-        </tr>
+        <h3><a href="{% url 'forum:category_home' main.slug %}">{{ main.name }}</a></h3>
         {% for sub in main.children.all %}
-        <tr>
-            <td><a href="{% url 'forum:category_home' sub.slug %}">{{ sub.name }}</a></td>
-            <td>{{ sub.forumthread_set.count }}</td>
-            <td>{{ sub.post_count }}</td>
-        </tr>
+        <div>
+            <div class="col-md-8"><a href="{% url 'forum:category_home' sub.slug %}">{{ sub.name }}</a></div>
+            <div class="col-md-2">{{ sub.forumthread_set.count }}</div>
+            <div class="col-md-2">{{ sub.post_count }}</div>
+        </div>
         {% endfor %}
     {% endfor %}
-    </table>
+    </div>
 {% endblock content %}
