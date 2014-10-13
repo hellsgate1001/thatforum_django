@@ -15,20 +15,39 @@
     <![endif]-->
 </head>
 <body>
-<header>
-    <div id="logo">
-        <h1>That Forum</h1>
+    <div class="container">
+        <div class="page-header">
+            <div id="logo" class="col-md-9">
+                <h1>That Forum</h1>
+            </div>
+            <div id="header_utils" class="col-md-3">
+                {% if request.user.is_authenticated %}
+                <a href="{% url 'user:my_account' %}">{{ request.user.username }}</a> (<a href="{% url 'logout' %}">Sign Out</a>)
+                {% else %}
+                <a href="{% url 'user:login' %}">Login</a>
+                {% endif %}
+            </div>
+        </div>
+
+        {% block content %}
+        {% endblock content %}
     </div>
-    <div id="header_utils">
-        {% if request.user.is_authenticated %}
-        <a href="{% url 'user:my_account' %}">{{ request.user.username }}</a> (<a href="{% url 'logout' %}">Sign Out</a>)
-        {% else %}
-        <a href="{% url 'user:login' %}">Login</a>
-        {% endif %}
+
+    <div class="footer">
+        <div class="container">
+            <section id="footer_forum" class="col-md-6">
+                <h5>Forums</h5>
+                <ul>
+                {% for cat in top_level %}
+                    <li><a href="{% url 'forum:category_home' slug=cat.slug %}">{{ cat.name }}</a></li>
+                {% endfor %}
+                </ul>
+            </section>
+            <section id="footer_user" class="col-md-6">
+
+            </section>
+        </div>
     </div>
-</header>
-{% block content %}
-{% endblock content %}
 
 <script type="text/javascript" src="{{ STATIC_URL }}js/jquery.1.11.1.min.js"></script>
 <script type="text/javascript" src="{{ STATIC_URL }}js/bootstrap.min.js"></script>
