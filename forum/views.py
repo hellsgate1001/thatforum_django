@@ -13,6 +13,7 @@ class DetailWithListMixin(object):
     valid_sort_fields = ()
     valid_sort_directions = {'asc': '', 'desc': '-'}
     list_model = None
+    list_attribute = None
     paginate_by = 25
 
     def dispatch(self, request, *args, **kwargs):
@@ -42,6 +43,12 @@ class DetailWithListMixin(object):
         context['sorting'] = self._get_sorting_details()
         context['list_items'] = self._get_items_for_list()
         return context
+
+    def get_list_attribute(self):
+        return self.list_attribute
+
+    def get_list_model(self, list_queryset=None):
+        return self.list_model
 
     def get_list_queryset(self, *args, **kwargs):
         return self.list_model.objects.all()
@@ -103,11 +110,37 @@ class ForumHome(ListView):
 
 class ForumCategoryHome(DetailWithListMixin, DetailView):
     model = ForumCategory
-    list_model = ForumThread
-    list_attribute = 'forumthread_set'
+
+    def dispatch(self, request, *args, **kwargs):
+        self.list_model = self.get_list_model()
+        self.list_attribute = self.get_list_attribute()
+        return super(ForumCategoryHome, self).dispatch(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super(ForumCategoryHome, self).get_context_data(**kwargs)
+        if isinstance(self.list_model, ForumThread):
+            context['list_type'] = 'threads'
+        else:
+            context['list_type'] = 'categories'
+        return context
+
+    def get_list_attribute(self):
+        if ForumCategory.objects.filter(parent=self.get_object()).count() == 0:
+            return 'forumthread_set'
+        else:
+            return 'children'
+
+    def get_list_model(self):
+        if ForumCategory.objects.filter(parent=self.get_object()).count() == 0:
+            return ForumThread
+        else:
+            return ForumCategory
 
     def get_list_queryset(self):
-        return self.list_model.objects.filter(category=self.get_object())
+        if ForumCategory.objects.filter(parent=self.get_object()).count() == 0:
+            return ForumThread.objects.filter(category=self.get_object())
+        else:
+            return ForumCategory.objects.filter(parent=self.get_object())
 
 
 class ForumThreadHome(DetailWithListMixin, DetailView):

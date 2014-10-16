@@ -3,19 +3,10 @@
 {% block content %}
     <h2 class="col-md-12">{{ object.name }}</h2>
     <div id="thread_list" class="col-md-12">
-        <div>
-            <div class="col-md-6">Thread Title</div>
-            <div class="col-md-2">Posted By</div>
-            <div class="col-md-2">Posted On</div>
-            <div class="col-md-2">No. of Replies</div>
-        </div>
-        {% for thread in list_items %}
-        <div>
-            <div class="col-md-6"><a href="{% url 'forum:thread_home' thread.slug %}">{{ thread.title }}</a></div>
-            <div class="col-md-2">{{ thread.author.username }}</div>
-            <div class="col-md-2">{{ thread.created|date }}</div>
-            <div class="col-md-2">{{ thread.num_replies }}</div>
-        </div>
-        {% endfor %}
+    {% if list_type == 'threads' %}
+        {% include 'forum/includes/thread_list.html' %}
+    {% else %}
+        {% include 'forum/includes/category_list.html' %}
+    {% endif %}
     </div>
 {% endblock content %}
