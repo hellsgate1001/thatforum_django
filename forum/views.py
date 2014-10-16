@@ -118,7 +118,7 @@ class ForumCategoryHome(DetailWithListMixin, DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(ForumCategoryHome, self).get_context_data(**kwargs)
-        if isinstance(self.list_model, ForumThread):
+        if self.list_attribute == 'forumthread_set':
             context['list_type'] = 'threads'
         else:
             context['list_type'] = 'categories'
