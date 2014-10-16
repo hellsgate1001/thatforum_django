@@ -1,16 +1,11 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <form action="" method="post">
-        {% csrf_token %}
-        {% for field in form %}
-        <div class="form-group col-md-12">
-            {{ field.errors }}
-            {{ field.label_tag }} {{ field }}
-        </div>
-        {% endfor %}
-        <button type="submit">Submit</button>
-    </form>
+    <div class="form-group col-md-12">
+        {% include 'includes/base_form.html' %}
+    </div>
+
+
     {% if posts %}
         {% for post in posts %}
             {% include 'forum/includes/forum_post.html' %}
