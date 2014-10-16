@@ -13,7 +13,9 @@ from django.core.urlresolvers import reverse
 
 from braces.views import LoginRequiredMixin, PermissionRequiredMixin
 
-from .forms import LoginForm, UserForm
+from thatforum.mixins import RequestForFormMixIn
+
+from .forms import LoginForm, UserForm, ChangePasswordForm
 
 
 class UserLogin(FormView):
@@ -69,3 +71,15 @@ class UserProfile(LoginRequiredMixin, UserViewMixin, UpdateView):
 
     def get_object(self, queryset=None):
         return self.request.user
+
+
+class UserUpdatePassword(
+    LoginRequiredMixin,
+    UserViewMixin,
+    RequestForFormMixIn,
+    UpdateView
+):
+    form_class = ChangePasswordForm
+
+    def get_success_url(self):
+        return reverse('user:my_account')

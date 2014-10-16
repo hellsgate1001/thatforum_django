@@ -1,13 +1,14 @@
 from django import forms
 
+from thatforum.forms import ThatForumBaseForm
+
 from .models import ForumThread, ForumPost
 
 
-class ThreadCreateUpdateForm(forms.ModelForm):
+class ThreadCreateUpdateForm(ThatForumBaseForm):
     post = forms.CharField(widget=forms.Textarea)
 
     def __init__(self, *args, **kwargs):
-        self.request = kwargs.pop('request')
         self.category = kwargs.pop('category')
         super(ThreadCreateUpdateForm, self).__init__(*args, **kwargs)
 
@@ -30,13 +31,10 @@ class ThreadCreateUpdateForm(forms.ModelForm):
         fields = ('title',)
 
 
-class ThreadReplyForm(forms.ModelForm):
+class ThreadReplyForm(ThatForumBaseForm):
     def __init__(self, *args, **kwargs):
-        self.request = kwargs.pop('request')
         self.thread = kwargs.pop('thread')
         super(ThreadReplyForm, self).__init__(*args, **kwargs)
-        for fn, field in self.fields.items():
-            field.widget.attrs['class'] = 'form-control'
 
     def save(self, commit=True):
         post = super(ThreadReplyForm, self).save(False)
