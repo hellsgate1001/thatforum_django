@@ -17,16 +17,30 @@ class LoginForm(forms.ModelForm):
         fields = ('username', 'password')
 
 
-class UserForm(forms.ModelForm):
+class UserForm(ThatForumBaseForm):
     class Meta:
         model = get_user_model()
-        fields = ('username', 'email')
+        fields = ('email',)
 
 
 class ChangePasswordForm(ThatForumBaseForm):
-    old_password = forms.CharField(label='Current password', widget=forms.PasswordInput, max_length=128)
-    password1 = forms.CharField(label='New password', widget=forms.PasswordInput, max_length=128)
-    password2 = forms.CharField(label='Confirm new password', widget=forms.PasswordInput, max_length=128)
+    old_password = forms.CharField(
+        label='Current password',
+        widget=forms.PasswordInput,
+        max_length=128
+    )
+    password1 = forms.CharField(
+        label='New password',
+        widget=forms.PasswordInput,
+        min_length=8,
+        max_length=128
+    )
+    password2 = forms.CharField(
+        label='Confirm new password',
+        widget=forms.PasswordInput,
+        min_length=8,
+        max_length=128
+    )
 
     def __init__(self, *args, **kwargs):
         super(ChangePasswordForm, self).__init__(*args, **kwargs)

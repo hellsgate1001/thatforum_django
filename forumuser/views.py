@@ -63,7 +63,12 @@ class UserCreate(LoginRequiredMixin, PermissionRequiredMixin,
         return self.object.get_absolute_url()
 
 
-class UserProfile(LoginRequiredMixin, UserViewMixin, UpdateView):
+class UserProfile(
+    LoginRequiredMixin,
+    UserViewMixin,
+    RequestForFormMixIn,
+    UpdateView
+):
     """
     Allow a user to update their own details and profile
     """
@@ -80,6 +85,11 @@ class UserUpdatePassword(
     UpdateView
 ):
     form_class = ChangePasswordForm
+    template_name = 'forumuser/changepassword_form.html'
 
     def get_success_url(self):
         return reverse('user:my_account')
+
+    def form_valid(self, form):
+        form.instance.set_password(form.cleaned_data.get('password1'))
+        return super(UserUpdatePassword, self).form_valid(form)

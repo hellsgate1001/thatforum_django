@@ -34,6 +34,18 @@ form ul {
     list-style-type: none;
     padding-left: 0;
 }
+form > ul > li {
+    border-radius: 4px;
+    margin-bottom: 3px;
+    padding: 4px;
+}
+li.error {
+    background: rgba(255, 0, 0, 0.3);
+}
 form ul li label {
     display: block;
+}
+
+ul.errorlist li {
+    color: red;
 }
