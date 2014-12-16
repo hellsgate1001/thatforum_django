@@ -1,7 +1,7 @@
 from django.conf.urls import patterns, include, url
 
 from .views import (UserList, UserDetail, UserCreate, UserUpdate, UserLogin,
-    UserProfile, UserUpdatePassword)
+    UserProfile, UserUpdatePassword, UserSignupView)
 
 forumuser_patterns = patterns('',
     url(r'^$', UserList.as_view(), name='list'),
@@ -12,6 +12,7 @@ forumuser_patterns = patterns('',
     url(r'^my_account/$', UserProfile.as_view(), name='my_account'),
 
     url(r'^login/$', UserLogin.as_view(), name='login'),
+    url(r'^signup/$', UserSignupView.as_view(), name='signup'),
 )
 
 urlpatterns = patterns('',

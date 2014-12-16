@@ -23,6 +23,29 @@ class UserForm(ThatForumBaseForm):
         fields = ('email',)
 
 
+class PasswordFieldsMixin(object):
+    password1 = forms.CharField(
+        label='New password',
+        widget=forms.PasswordInput,
+        min_length=8,
+        max_length=128
+    )
+    password2 = forms.CharField(
+        label='Confirm new password',
+        widget=forms.PasswordInput,
+        min_length=8,
+        max_length=128
+    )
+
+    def clean(self):
+        cleaned_data = super(PasswordFieldsMixin, self).clean()
+        pw1 = cleaned_data.get('password1', '')
+        pw2 = cleaned_data.get('password2', '')
+        if pw1 != '' and pw2 != '' and pw1 != pw2:
+            raise forms.ValidationError('The passwords do not match')
+        return cleaned_data
+
+
 class ChangePasswordForm(ThatForumBaseForm):
     old_password = forms.CharField(
         label='Current password',
@@ -62,3 +85,33 @@ class ChangePasswordForm(ThatForumBaseForm):
     class Meta:
         model = get_user_model()
         fields = ('old_password', 'password1', 'password2')
+
+
+class SignupForm(PasswordFieldsMixin, ThatForumBaseForm):
+    password1 = forms.CharField(
+        label='New password',
+        widget=forms.PasswordInput,
+        min_length=8,
+        max_length=128
+    )
+    password2 = forms.CharField(
+        label='Confirm new password',
+        widget=forms.PasswordInput,
+        min_length=8,
+        max_length=128
+    )
+
+    def __init__(self, *args, **kwargs):
+        super(SignupForm, self).__init__(*args, **kwargs)
+
+    def clean(self):
+        cleaned_data = super(SignupForm, self).clean()
+        pw1 = cleaned_data.get('password1', '')
+        pw2 = cleaned_data.get('password2', '')
+        if pw1 != '' and pw2 != '' and pw1 != pw2:
+            raise forms.ValidationError('The passwords do not match')
+        return cleaned_data
+
+    class Meta:
+        model = get_user_model()
+        fields = ('email', 'password1', 'password2')

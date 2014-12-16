@@ -3,6 +3,8 @@
 {% block content %}
     <div class="col-md-4">
         {% include 'includes/base_form.html' %}
+        {% if not hide_edit_password %}
         <a href="{% url 'user:edit_password' pk=request.user.pk %}">Change password</a>
+        {% endif %}
     </div>
 {% endblock content %}
