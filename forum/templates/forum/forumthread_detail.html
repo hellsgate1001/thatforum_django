@@ -1,10 +1,15 @@
 {% extends 'base.html' %}
 
 {% block content %}
+    <div id="breadcrumb">
+    {% for bc in object.thread_starter.get_breadcrumb %}
+        <a href="{{ bc.1 }}">{{ bc.0 }}</a>{% if not forloop.last %} |{% endif %}
+    {% endfor %}
+    </div>
     <h2>{{ object.title }}</h2>
     <a href="{% url 'forum:thread_reply' object.slug %}">Reply</a>
     <div>
-        <div class="col-md-12">
+        <div class="col-md-12 forum_post">
             <div class="col-md-3">
                 {{ object.thread_starter.author.username }}<br/>
                 {{ object.thread_starter.created }}

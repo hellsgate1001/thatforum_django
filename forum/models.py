@@ -69,3 +69,29 @@ class ForumPost(models.Model):
             'thread': self.thread.title,
             'pk': self.pk
         }
+
+    def get_breadcrumb(self):
+        breadcrumb = [
+            (
+                self.thread.title,
+                reverse(
+                    'forum:thread_home',
+                    kwargs={'slug': self.thread.slug}
+                )
+            ),
+        ]
+        category = self.thread.category
+        while True:
+            breadcrumb_item = (
+                category.name,
+                reverse(
+                    'forum:category_home',
+                    kwargs={'slug': category.slug}
+                ),
+            )
+            breadcrumb.insert(0, breadcrumb_item)
+            if category.parent is None:
+                break
+            category = category.parent
+
+        return breadcrumb

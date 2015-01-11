@@ -1,14 +1,14 @@
     <div id="category_list">
-        <div>
-            <div class="col-md-8">Category</div>
-            <div class="col-md-2">No. of threads</div>
-            <div class="col-md-2">No. of posts</div>
+        <div class="table-row">
+            <div class="col-md-8 table-cell">Category</div>
+            <div class="col-md-2 table-cell">No. of threads</div>
+            <div class="col-md-2 table-cell">No. of posts</div>
         </div>
     {% for sub in list_items %}
-        <div>
-            <div class="col-md-8"><a href="{% url 'forum:category_home' sub.slug %}">{{ sub.name }}</a></div>
-            <div class="col-md-2">{{ sub.forumthread_set.count }}</div>
-            <div class="col-md-2">{{ sub.post_count }}</div>
+        <div class="table-row">
+            <div class="col-md-8 table-cell"><a href="{% url 'forum:category_home' sub.slug %}">{{ sub.name }}</a></div>
+            <div class="col-md-2 table-cell">{{ sub.forumthread_set.count }}</div>
+            <div class="col-md-2 table-cell">{{ sub.post_count }}</div>
         </div>
     {% endfor %}
     </div>
