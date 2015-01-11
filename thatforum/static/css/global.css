@@ -57,3 +57,18 @@ h1 a, h1 a:hover {
 a.no-state, a.no-state:visited {
     color: #333;
 }
+
+/* Table layouts *************************** */
+.table {
+    border-left: 1px solid #333;
+    border-top: 1px solid #333;
+    padding-left: 0;
+    padding-right: 0;
+}
+.table .table-row:nth-child(2n+1) > .table-cell {
+    background-color: #f9f9f9;
+}
+.table-cell {
+    border-bottom: 1px solid #333;
+    border-right: 1px solid #333;
+}

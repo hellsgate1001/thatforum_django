@@ -2,7 +2,7 @@
 
 {% block content %}
     <h2 class="col-md-12">{{ object.name }}</h2>
-    <div id="thread_list" class="col-md-12">
+    <div id="thread_list" class="col-md-12 table">
     {% if list_type == 'threads' %}
         {% include 'forum/includes/thread_list.html' %}
     {% else %}

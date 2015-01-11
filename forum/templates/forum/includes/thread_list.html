@@ -1,14 +1,14 @@
-        <div>
-            <div class="col-md-6">Thread Title</div>
-            <div class="col-md-2">Posted By</div>
-            <div class="col-md-2">Posted On</div>
-            <div class="col-md-2">No. of Replies</div>
+        <div class="table-row">
+            <div class="col-md-6 table-cell">Thread Title</div>
+            <div class="col-md-2 table-cell">Posted By</div>
+            <div class="col-md-2 table-cell">Posted On</div>
+            <div class="col-md-2 table-cell">No. of Replies</div>
         </div>
         {% for thread in list_items %}
-        <div>
-            <div class="col-md-6"><a href="{% url 'forum:thread_home' thread.slug %}">{{ thread.title }}</a></div>
-            <div class="col-md-2">{{ thread.author.username }}</div>
-            <div class="col-md-2">{{ thread.created|date }}</div>
-            <div class="col-md-2">{{ thread.num_replies }}</div>
+        <div class="table-row">
+            <div class="col-md-6 table-cell"><a href="{% url 'forum:thread_home' thread.slug %}">{{ thread.title }}</a></div>
+            <div class="col-md-2 table-cell">{{ thread.author.username }}</div>
+            <div class="col-md-2 table-cell">{{ thread.created|date }}</div>
+            <div class="col-md-2 table-cell">{{ thread.num_replies }}</div>
         </div>
         {% endfor %}
