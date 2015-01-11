@@ -10,4 +10,7 @@
     {% endfor %}
     </ul>
     <button type="submit">Submit</button>
+    {% if show_cancel %}
+    <a href="{{ show_cancel }}">Cancel</a>
+    {% endif %}
 </form>
