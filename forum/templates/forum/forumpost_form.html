@@ -1,6 +1,11 @@
 {% extends 'base.html' %}
 
 {% block content %}
+    <div id="breadcrumb">
+    {% for bc in object.thread_starter.get_breadcrumb %}
+        <a href="{{ bc.1 }}">{{ bc.0 }}</a>{% if not forloop.last %} |{% endif %}
+    {% endfor %}
+    </div>
     <div class="form-group col-md-12">
         {% include 'includes/base_form.html' %}
     </div>

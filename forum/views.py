@@ -173,6 +173,8 @@ class ForumThreadReply(RequestForFormMixIn, CreateView):
         context['posts'] = (
             self.get_object().forumpost_set.all().order_by('-created')[:5]
         )
+
+        context['object'] = self.model.objects.get(slug=self.kwargs['slug'])
         return context
 
     def get_form_kwargs(self):

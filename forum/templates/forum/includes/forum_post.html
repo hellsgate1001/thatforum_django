@@ -2,18 +2,25 @@
     <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/forum_1.css" />
 {% endblock extra_css %}
         <div class="col-md-12 forum_post{% if forloop.counter0|divisibleby:"2" %} stripe_row{% endif %}">
-            <div class="col-md-3">
-                {{ post.author.username }}: {{ forloop.counter }}<br/>
-                {{ post.created }}
-            </div>
-            <div class="col-md-9">
-            {% if post.reply_to %}
-                <div class="reply_to">
-                    {{ post.reply_to.author.username }} posted<br/>
-                    <hr/>
-                    {{ post.reply_to.post }}
+            <div>
+                <div class="col-md-3">
+                    {{ post.author.username }}: {{ forloop.counter }}<br/>
+                    {{ post.created }}
                 </div>
-            {% endif %}
-                {{ post.post}}
+                <div class="col-md-9">
+                {% if post.reply_to %}
+                    <div class="reply_to">
+                        {{ post.reply_to.author.username }} posted<br/>
+                        <hr/>
+                        {{ post.reply_to.post }}
+                    </div>
+                {% endif %}
+                    {{ post.post}}
+                </div>
             </div>
+            {% if show_tools %}
+            <div>
+                <a href="{% url 'forum:thread_reply_quote' object.slug post.pk %}">Quote</a>
+            </div>
+            {% endif %}
         </div>

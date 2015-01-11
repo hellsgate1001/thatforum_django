@@ -12,6 +12,8 @@ forum_patterns = patterns('',
         name='category_home'),
     url(r'^thread/(?P<slug>[-\w]+)/$', ForumThreadHome.as_view(),
         name='thread_home'),
+    url(r'^thread/(?P<slug>[-\w]+)/reply/(?P<quote_pk>[-\d]+)/$', ForumThreadReply.as_view(),
+        name='thread_reply_quote'),
     url(r'^thread/(?P<slug>[-\w]+)/reply/$', ForumThreadReply.as_view(),
         name='thread_reply'),
 )
