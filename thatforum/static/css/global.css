@@ -49,3 +49,11 @@ form ul li label {
 ul.errorlist li {
     color: red;
 }
+
+/* Links *********************************** */
+h1 a, h1 a:hover {
+    text-decoration: none;
+}
+a.no-state, a.no-state:visited {
+    color: #333;
+}
