@@ -104,7 +104,7 @@ TEMPLATE_DIRS = (
 LOGIN_URL = '/users/login/'
 LOGIN_REDIRECT_URL = '/'
 
-DATE_FORMAT = 'H:i d-m-Y'
+DATE_FORMAT = 'H:i d-M-Y'
 
 TEMPLATE_CONTEXT_PROCESSORS = (
     "django.contrib.auth.context_processors.auth",
