@@ -8,19 +8,17 @@ https://docs.djangoproject.com/en/1.6/howto/deployment/wsgi/
 """
 
 import os, sys, site
-if 'DJANGO_SETTINGS_MODULE' not in os.environ:
-    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "commwar.settings")
+sys.path.append('/var/envs/thatforum/lib/python2.7/site-packages')
+from unipath import Path
+sys.path.append('/var/projects/thatforum_django')
+os.environ['DJANGO_SETTINGS_MODULE'] = 'thatforum.settings.production'
 
 import django.core.handlers.wsgi
+
 _application = django.core.handlers.wsgi.WSGIHandler()
 
 def application(environ, start_response):
     os.environ['THATFORUM_DB_PASS'] = environ['THATFORUM_DB_PASS']
-    os.environ['DJANGO_SETTINGS_MODULE'] = environ['DJANGO_SETTINGS_MODULE']
-    os.environ['THATFORUM_SECRET_KEY'] = environ['THATFORUM_SECRET_KEY']
-    # if 'DJANGO_CONFIGURATION' in environ:
-    #     import newrelic.agent
-    #     newrelic.agent.initialize('%s/newrelic/newrelic.ini' % Path(__file__).ancestor(2), environ['DJANGO_CONFIGURATION'])
 
     try:
         return _application(environ, start_response)
