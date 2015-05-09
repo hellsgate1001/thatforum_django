@@ -4,13 +4,24 @@
     <div id="category_list">
     {% for main in object_list %}
         <h3><a href="{% url 'forum:category_home' main.slug %}">{{ main.name }}</a></h3>
-        {% for sub in main.children.all %}
-        <div>
-            <div class="col-md-8"><a href="{% url 'forum:category_home' sub.slug %}">{{ sub.name }}</a></div>
-            <div class="col-md-2">{{ sub.forumthread_set.count }}</div>
-            <div class="col-md-2">{{ sub.post_count }}</div>
-        </div>
-        {% endfor %}
+        <table>
+            <thead>
+                <tr>
+                    <td>Category</td>
+                    <td>No. of Threads</td>
+                    <td>No. of Posts</td>
+                </tr>
+            </thead>
+            <tbody>
+            {% for sub in main.children.all %}
+                <tr>
+                    <td><a href="{% url 'forum:category_home' sub.slug %}">{{ sub.name }}</a></td>
+                    <td>{{ sub.forumthread_set.count }}</td>
+                    <td>{{ sub.post_count }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
     {% endfor %}
     </div>
 {% endblock content %}
