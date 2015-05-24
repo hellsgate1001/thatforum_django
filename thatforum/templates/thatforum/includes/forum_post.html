@@ -10,7 +10,7 @@
                 <div class="col-md-9">
                 {% if post.reply_to %}
                     <div class="reply_to">
-                        {{ post.reply_to.author.username }} posted<br/>
+                        {{ post.reply_to.author.username }} posted on {{ post.reply_to.created|date:"d-m-Y H:i" }}<br/>
                         <hr/>
                         {{ post.reply_to.post }}
                     </div>

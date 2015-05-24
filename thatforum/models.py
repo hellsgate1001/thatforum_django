@@ -80,7 +80,7 @@ class ForumPost(models.Model):
             (
                 self.thread.title,
                 reverse(
-                    'forum:thread_home',
+                    'thread_home',
                     kwargs={'slug': self.thread.slug}
                 )
             ),
@@ -90,7 +90,7 @@ class ForumPost(models.Model):
             breadcrumb_item = (
                 category.name,
                 reverse(
-                    'forum:category_home',
+                    'category_home',
                     kwargs={'slug': category.slug}
                 ),
             )
