@@ -1,3 +1,6 @@
+from django.core.paginator import Paginator
+
+
 class RequestForFormMixIn(object):
 
     def get_form_kwargs(self):

@@ -8,7 +8,7 @@
     <div class="category_list col-md-12 table-responsive">
     {% for main in object_list %}
         <div class="category_title col-md-12">
-            <h4><a href="#">{{ main.name }}</a>{% if main.description %} <span class="category_description">{{ main.description }}</span>{% endif %}</h4>
+            <h4><a href="{% url 'category_home' slug=main.slug %}">{{ main.name }}</a>{% if main.description %} <span class="category_description">{{ main.description }}</span>{% endif %}</h4>
         </div>
         <table id="list-table" class="table table-bordered col-md-12">
             <thead>
@@ -23,7 +23,7 @@
                 {% for sub in main.children.all %}
                 <tr>
                     <td class="col-md-1"></td>
-                    <td class="sub_title col-md-7"><a href="#">{{ sub.name }}</a>{% if sub.description %}<p>{{ sub.description }}</p>{% endif %}</td>
+                    <td class="sub_title col-md-7"><a href="{% url 'category_home' slug=sub.slug %}">{{ sub.name }}</a>{% if sub.description %}<p>{{ sub.description }}</p>{% endif %}</td>
                     <td class="col-md-1">{{ sub.forumthread_set.count }}</td>
                     <td class="col-md-1">{{ sub.post_count }}</td>
                     <td class="col-md-2">Date</td>

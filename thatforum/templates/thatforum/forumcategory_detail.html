@@ -1,15 +1,22 @@
 {% extends 'base.html' %}
 
+{% block extra_css %}
+    <link type="text/css" rel="stylesheet" href="{{ STATIC_URL }}css/forum_1.css" />
+{% endblock extra_css %}
+
 {% block content %}
     <h2 class="col-md-12">{{ object.name }}</h2>
     <div id="category-tools">
         <a href="{% url 'add_thread' slug=object.slug %}">New Thread</a>
     </div>
-    <div id="thread_list" class="col-md-12 table">
-    {% if list_type == 'threads' %}
-        {% include 'forum/includes/thread_list.html' %}
-    {% else %}
-        {% include 'forum/includes/category_list.html' %}
-    {% endif %}
+    <div class="category_list col-md-12 table-responsive">
+        <div class="category_title col-md-12">
+            <h4>{{ object.name }}{% if object.description %} <span class="category_description">{{ object.description }}</span>{% endif %}</h4>
+        </div>
+        {% if list_type == 'threads' %}
+            {% include 'thatforum/includes/thread_list.html' %}
+        {% else %}
+            {% include 'thatforum/includes/category_list.html' %}
+        {% endif %}
     </div>
 {% endblock content %}
