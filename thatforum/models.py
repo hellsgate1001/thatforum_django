@@ -43,6 +43,10 @@ class ForumThread(models.Model):
         return reverse('forum:thread_home', kwargs={'slug': self.slug})
 
     @property
+    def last_post(self):
+        return self.forumpost_set.order_by('-created').first()
+
+    @property
     def num_replies(self):
         return self.forumpost_set.filter(is_thread_starter=False).count()
 

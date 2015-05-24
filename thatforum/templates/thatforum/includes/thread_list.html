@@ -1,14 +1,21 @@
-        <div class="table-row">
-            <div class="col-md-6 table-cell">Thread Title</div>
-            <div class="col-md-2 table-cell">Posted By</div>
-            <div class="col-md-2 table-cell">Posted On</div>
-            <div class="col-md-2 table-cell">No. of Replies</div>
-        </div>
-        {% for thread in list_items %}
-        <div class="table-row">
-            <div class="col-md-6 table-cell"><a href="{% url 'thread_home' thread.slug %}">{{ thread.title }}</a></div>
-            <div class="col-md-2 table-cell">{{ thread.author.username }}</div>
-            <div class="col-md-2 table-cell">{{ thread.created|date }}</div>
-            <div class="col-md-2 table-cell">{{ thread.num_replies }}</div>
-        </div>
-        {% endfor %}
+        <table id="list-table" class="table table-bordered col-md-12">
+            <thead>
+                <tr>
+                    <th colspan="2" class="text-center">Topics</th>
+                    <th>Author</th>
+                    <th>Replies</th>
+                    <th>Last post</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for thread in list_items %}
+                <tr>
+                    <td class="col-md-1"></td>
+                    <td class="sub_title col-md-7"><a href="{% url 'thread_home' slug=thread.slug %}">{{ thread.title }}</a>{% if sub.description %}<p>{{ sub.description }}</p>{% endif %}</td>
+                    <td class="col-md-1">{{ thread.author.username }}</td>
+                    <td class="col-md-1">{{ thread.num_replies }}</td>
+                    <td class="col-md-2">{{ thread.last_post.created|date:"d-m-Y H:i" }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
