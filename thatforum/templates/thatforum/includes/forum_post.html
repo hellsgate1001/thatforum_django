@@ -20,7 +20,7 @@
             </div>
             {% if show_tools %}
             <div>
-                <a href="{% url 'forum:thread_reply_quote' object.slug post.pk %}">Quote</a>
+                <a href="{% url 'thread_reply_quote' object.slug post.pk %}">Quote</a>
             </div>
             {% endif %}
         </div>

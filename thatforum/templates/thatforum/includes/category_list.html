@@ -6,7 +6,7 @@
         </div>
     {% for sub in list_items %}
         <div class="table-row">
-            <div class="col-md-8 table-cell"><a href="{% url 'forum:category_home' sub.slug %}">{{ sub.name }}</a></div>
+            <div class="col-md-8 table-cell"><a href="{% url 'category_home' sub.slug %}">{{ sub.name }}</a></div>
             <div class="col-md-2 table-cell">{{ sub.forumthread_set.count }}</div>
             <div class="col-md-2 table-cell">{{ sub.post_count }}</div>
         </div>

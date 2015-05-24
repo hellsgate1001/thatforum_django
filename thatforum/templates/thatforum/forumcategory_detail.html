@@ -3,7 +3,7 @@
 {% block content %}
     <h2 class="col-md-12">{{ object.name }}</h2>
     <div id="category-tools">
-        <a href="{% url 'forum:add_thread' slug=object.slug %}">New Thread</a>
+        <a href="{% url 'add_thread' slug=object.slug %}">New Thread</a>
     </div>
     <div id="thread_list" class="col-md-12 table">
     {% if list_type == 'threads' %}

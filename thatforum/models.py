@@ -12,6 +12,7 @@ class ForumCategory(MPTTModel):
     )
     name = models.CharField(max_length=255)
     slug = models.SlugField(max_length=255)
+    description = models.CharField(max_length=255, blank=True)
     order = models.PositiveIntegerField(blank=True, null=True)
 
     def __unicode__(self):

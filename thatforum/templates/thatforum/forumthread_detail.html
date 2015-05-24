@@ -7,7 +7,7 @@
     {% endfor %}
     </div>
     <h2>{{ object.title }}</h2>
-    <a href="{% url 'forum:thread_reply' object.slug %}">Reply</a>
+    <a href="{% url 'thread_reply' object.slug %}">Reply</a>
     <div>
         <div class="col-md-12 forum_post">
             <div class="col-md-3">
