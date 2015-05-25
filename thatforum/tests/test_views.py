@@ -14,7 +14,9 @@ class TestListView(ThatForumTestCase):
         self.posts = ForumPostFactory.create_batch(40, thread=self.thread)
 
     def test_pagination(self):
-        list_url = reverse('list')
+        list_url = reverse('thread_home', kwargs={'slug': self.thread.slug})
         response = self.GET(list_url)
-        import pdb;pdb.set_trace()
-        self.assertEqual(response.context['object_list'].count(), settings.DEFAULT_PAGINATE_BY)
+        self.assertEqual(
+            len(response.context['list_items'].object_list),
+            settings.DEFAULT_PAGINATE_BY
+        )
