@@ -1,6 +1,7 @@
 {% block extra_css %}
     <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/forum_1.css" />
 {% endblock extra_css %}
+
         <div class="col-md-12 forum_post{% if forloop.counter0|divisibleby:"2" %} stripe_row{% endif %}">
             <div>
                 <div class="col-md-3">
@@ -20,7 +21,7 @@
             </div>
             {% if show_tools %}
             <div>
-                <a href="{% url 'thread_reply_quote' object.slug post.pk %}">Quote</a>
+                <a href="{% url 'thread_reply_quote' object.slug post.pk %}" class="btn btn-default">Quote</a>
             </div>
             {% endif %}
         </div>

@@ -17,6 +17,9 @@
 .category_list > .table:last-child > tbody > tr:last-child > td {
     border-bottom: none;
 }
+.category_tools {
+    margin-bottom: 10px;
+}
 .category_title a {
     color: #333333;
 }

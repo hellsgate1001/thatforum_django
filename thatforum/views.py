@@ -27,6 +27,7 @@ class ForumCategoryHome(DetailWithListMixin, DetailView):
             context['list_type'] = 'threads'
         else:
             context['list_type'] = 'categories'
+        context['extra_title'] = ' - %s' % self.object.name
         return context
 
     def get_list_attribute(self):
@@ -57,6 +58,11 @@ class ForumThreadHome(DetailWithListMixin, DetailView):
         return (self.list_model.objects.filter(thread=self.get_object(),
                 is_thread_starter=False).order_by('created'))
 
+    def get_context_data(self, **kwargs):
+        context = super(ForumThreadHome, self).get_context_data(**kwargs)
+        context['extra_title'] = ' - %s' % self.object.title
+        return context
+
 
 class ForumThreadCreateView(RequestForFormMixIn, CreateView):
     model = ForumThread
@@ -67,11 +73,16 @@ class ForumThreadCreateView(RequestForFormMixIn, CreateView):
         kwargs.update({'category': ForumCategory.objects.get(slug=self.kwargs['slug'])})
         return kwargs
 
+    def get_context_data(self, **kwargs):
+        context = super(ForumThreadCreateView, self).get_context_data(**kwargs)
+        context['extra_title'] = ' - New Thread'
+        return context
+
 
 class ForumThreadReply(RequestForFormMixIn, CreateView):
     model = ForumThread
     form_class = ThreadReplyForm
-    template_name = 'forum/forumpost_form.html'
+    template_name = 'thatforum/forumpost_form.html'
 
     def get_context_data(self, **kwargs):
         context = super(ForumThreadReply, self).get_context_data(**kwargs)
@@ -81,6 +92,7 @@ class ForumThreadReply(RequestForFormMixIn, CreateView):
 
         context['object'] = self.get_object()
         context['show_cancel'] = self.get_object().get_absolute_url()
+        context['extra_title'] = ' - Reply'
         return context
 
     def get_form_kwargs(self):

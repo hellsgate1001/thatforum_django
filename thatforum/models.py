@@ -40,7 +40,7 @@ class ForumThread(models.Model):
         return self.title
 
     def get_absolute_url(self):
-        return reverse('forum:thread_home', kwargs={'slug': self.slug})
+        return reverse('thread_home', kwargs={'slug': self.slug})
 
     @property
     def last_post(self):

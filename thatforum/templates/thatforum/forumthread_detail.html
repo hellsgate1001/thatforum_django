@@ -1,13 +1,21 @@
 {% extends 'base.html' %}
 
-{% block content %}
-    <div id="breadcrumb">
+{% block page_utils %}
+    <div id="breadcrumb" class="pull-left">
     {% for bc in object.thread_starter.get_breadcrumb %}
-        <a href="{{ bc.1 }}">{{ bc.0 }}</a>{% if not forloop.last %} |{% endif %}
+        {% if forloop.last %}
+        {{ bc.0 }}
+        {% else %}
+        <a href="{{ bc.1 }}">{{ bc.0 }}</a> |
+        {% endif %}
     {% endfor %}
     </div>
+    {{ block.super }}
+{% endblock page_utils %}
+
+{% block content %}
     <h2>{{ object.title }}</h2>
-    <a href="{% url 'thread_reply' object.slug %}">Reply</a>
+    <a href="{% url 'thread_reply' object.slug %}" class="btn btn-primary">Reply</a>
     <div>
         <div class="col-md-12 forum_post">
             <div class="col-md-3">
