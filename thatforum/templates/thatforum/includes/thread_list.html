@@ -1,0 +1,21 @@
+        <table id="list-table" class="table table-bordered col-md-12">
+            <thead>
+                <tr>
+                    <th colspan="2" class="text-center">Topics</th>
+                    <th>Author</th>
+                    <th>Replies</th>
+                    <th>Last post</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for thread in list_items %}
+                <tr>
+                    <td class="col-md-1"></td>
+                    <td class="sub_title col-md-7"><a href="{% url 'thread_home' slug=thread.slug %}">{{ thread.title }}</a>{% if sub.description %}<p>{{ sub.description }}</p>{% endif %}</td>
+                    <td class="col-md-1">{{ thread.author.username }}</td>
+                    <td class="col-md-1">{{ thread.num_replies }}</td>
+                    <td class="col-md-2">{{ thread.last_post.created|date:"d-m-Y H:i" }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>

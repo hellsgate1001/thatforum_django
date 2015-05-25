@@ -1,4 +1,6 @@
-from factory import Sequence
+from django.template.defaultfilters import slugify
+
+from factory import Sequence, LazyAttribute
 from factory.django import DjangoModelFactory
 from faker import Faker
 
@@ -10,6 +12,7 @@ from ..models import ForumCategory, ForumThread, ForumPost
 class ForumCategoryFactory(DjangoModelFactory):
     FACTORY_FOR = ForumCategory
     name = Sequence(lambda n: 'forum-category-{0}'.format(n))
+    slug = LazyAttribute(lambda a: slugify(a.name))
 
 
 class ForumThreadFactory(DjangoModelFactory):

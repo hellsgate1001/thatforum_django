@@ -12,6 +12,7 @@ class ForumCategory(MPTTModel):
     )
     name = models.CharField(max_length=255)
     slug = models.SlugField(max_length=255)
+    description = models.CharField(max_length=255, blank=True)
     order = models.PositiveIntegerField(blank=True, null=True)
 
     def __unicode__(self):
@@ -39,7 +40,11 @@ class ForumThread(models.Model):
         return self.title
 
     def get_absolute_url(self):
-        return reverse('forum:thread_home', kwargs={'slug': self.slug})
+        return reverse('thread_home', kwargs={'slug': self.slug})
+
+    @property
+    def last_post(self):
+        return self.forumpost_set.order_by('-created').first()
 
     @property
     def num_replies(self):
@@ -75,7 +80,7 @@ class ForumPost(models.Model):
             (
                 self.thread.title,
                 reverse(
-                    'forum:thread_home',
+                    'thread_home',
                     kwargs={'slug': self.thread.slug}
                 )
             ),
@@ -85,7 +90,7 @@ class ForumPost(models.Model):
             breadcrumb_item = (
                 category.name,
                 reverse(
-                    'forum:category_home',
+                    'category_home',
                     kwargs={'slug': category.slug}
                 ),
             )

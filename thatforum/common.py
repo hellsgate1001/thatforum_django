@@ -1,4 +1,4 @@
-from forum.models import ForumCategory
+from thatforum.models import ForumCategory
 
 def context(request):
     c = {}

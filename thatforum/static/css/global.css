@@ -1,3 +1,11 @@
+/*
+PALETTE
+#9aa9b9
+#aeb5c4
+#c2d5d2
+#d3e2da
+#e5efe5
+*/
 html {
   position: relative;
   min-height: 100%;
@@ -6,16 +14,20 @@ body {
   /* Margin bottom by footer height */
   margin-bottom: 180px;
 }
-.page-header {
+.page-header, .page-utils {
     float: left;
     width: 100%;
     margin-top: 0;
+    margin-bottom: 10px;
     position: relative;
 }
-#header_utils {
+/*#header_utils {
     bottom: 10px;
     position: absolute;
     right: 0;
+}*/
+.page-utils {
+    font-size: 14px;
 }
 .stripe_row {
     background-color: #cccccc;

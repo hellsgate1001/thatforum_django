@@ -57,7 +57,6 @@ THIRD_PARTY_APPS = (
 THATFORUM_APPS = (
     'thatforum',
     'forumuser',
-    'forum',
 )
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + THATFORUM_APPS
 
@@ -88,7 +87,7 @@ WSGI_APPLICATION = 'thatforum.wsgi.application'
 # Internationalization
 # https://docs.djangoproject.com/en/1.6/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'en-gb'
 
 TIME_ZONE = 'Europe/London'
 
