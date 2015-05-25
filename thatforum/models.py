@@ -19,6 +19,19 @@ class ForumCategory(MPTTModel):
         return self.name
 
     @property
+    def last_post(self):
+        if self.parent is None:
+            return None
+        response = None
+        for thread in self.forumthread_set.all():
+            if response is None:
+                response = thread.last_post
+            else:
+                if thread.last_post.created > response.created:
+                    response = thread.last_post
+        return response
+
+    @property
     def post_count(self):
         count = 0
         for thread in self.forumthread_set.all():

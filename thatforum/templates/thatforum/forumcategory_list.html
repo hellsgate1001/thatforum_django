@@ -26,7 +26,7 @@
                     <td class="sub_title col-md-7"><a href="{% url 'category_home' slug=sub.slug %}">{{ sub.name }}</a>{% if sub.description %}<p>{{ sub.description }}</p>{% endif %}</td>
                     <td class="col-md-1">{{ sub.forumthread_set.count }}</td>
                     <td class="col-md-1">{{ sub.post_count }}</td>
-                    <td class="col-md-2">Date</td>
+                    <td class="col-md-2">{{ sub.last_post.created|date:"d-m-Y H:i" }}</td>
                 </tr>
                 {% endfor %}
             </tbody>
